@@ -1,0 +1,12 @@
+/* @import "~bootstrap/dist/css//bootstrap.min.css"; */
+.error {
+  border: 1px solid red;
+}
+
+.correct {
+  border: 1px solid green;
+}
+
+.none {
+  display: none;
+}
