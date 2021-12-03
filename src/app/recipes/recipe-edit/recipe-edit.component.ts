@@ -41,8 +41,8 @@ export class RecipeEditComponent implements OnInit {
         for (let ing of recipe.ingredients) {
           recipeIngredients.push(
             new FormGroup({
-              name: new FormControl(ing.name),
-              amount: new FormControl(ing.amount),
+              name: new FormControl(ing.name, Validators.required),
+              amount: new FormControl(ing.amount, Validators.required),
             })
           );
         }
@@ -51,8 +51,8 @@ export class RecipeEditComponent implements OnInit {
 
     this.recipeForm = new FormGroup({
       name: new FormControl(recipeName, Validators.required),
-      description: new FormControl(recipeImagePath, Validators.required),
-      imagePath: new FormControl(recipeDescription, Validators.required),
+      imagePath: new FormControl(recipeImagePath, Validators.required),
+      description: new FormControl(recipeDescription, Validators.required),
       ingredients: recipeIngredients,
     });
   }
@@ -64,5 +64,17 @@ export class RecipeEditComponent implements OnInit {
 
   getControls() {
     return (<FormArray>this.recipeForm.get('ingredients')).controls;
+  }
+  onAddIngredient() {
+    (<FormArray>this.recipeForm.get('ingredients')).push(
+      new FormGroup({
+        name: new FormControl(null, Validators.required),
+        amount: new FormControl(null, Validators.required),
+      })
+    );
+  }
+  onDeleteIngredient(index: number) {
+    console.log(index);
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
   }
 }
